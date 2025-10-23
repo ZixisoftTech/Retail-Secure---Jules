@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @category    Controller
  * @author      Jules
  */
-class Dashboard extends Base_Controller {
+class Dashboard extends MY_Controller {
 
     /**
      * Index

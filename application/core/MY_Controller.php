@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @category    Controller
  * @author      Jules
  */
-class Base_Controller extends CI_Controller {
+class MY_Controller extends CI_Controller {
 
     /**
      * User data for the currently logged-in user.
