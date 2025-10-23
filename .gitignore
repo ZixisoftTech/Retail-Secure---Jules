@@ -1,0 +1,10 @@
+# macOS system files
+.DS_Store
+
+# Cache & log files
+application/cache/
+application/logs/
+system/cache/
+application/config/database.php
+application/config/config.php
+
