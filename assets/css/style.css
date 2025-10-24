@@ -1,44 +1,73 @@
-#wrapper {
+/* Google Fonts: Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary-color: #0d6efd;
+    --sidebar-bg: #ffffff;
+    --sidebar-link-color: #495057;
+    --sidebar-link-hover-bg: #f8f9fa;
+    --main-bg: #f4f7f6;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
+    background-color: var(--main-bg);
+}
+
+#wrapper {
+    display: flex;
 }
 
 #sidebar-wrapper {
     min-height: 100vh;
-    margin-left: -15rem;
-    -webkit-transition: margin .25s ease-out;
-    -moz-transition: margin .25s ease-out;
-    -o-transition: margin .25s ease-out;
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid #dee2e6;
     transition: margin .25s ease-out;
 }
 
 #sidebar-wrapper .sidebar-heading {
-    padding: 0.875rem 1.25rem;
-    font-size: 1.2rem;
+    padding: 1.2rem 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 1px solid #dee2e6;
 }
 
-#sidebar-wrapper .list-group {
-    width: 15rem;
+#sidebar-wrapper .list-group-item {
+    border: none;
+    padding: 1rem 1.25rem;
+    color: var(--sidebar-link-color);
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#sidebar-wrapper .list-group-item-action:hover,
+#sidebar-wrapper .list-group-item-action:focus {
+    background-color: var(--sidebar-link-hover-bg);
+    color: var(--primary-color);
 }
 
 #page-content-wrapper {
-    min-width: 100vw;
+    width: 100%;
 }
 
-body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
-    margin-left: 0;
+.navbar {
+    box-shadow: var(--card-shadow);
+}
+
+/* Sidebar Toggling */
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -250px;
 }
 
 @media (min-width: 768px) {
     #sidebar-wrapper {
         margin-left: 0;
     }
-
-    #page-content-wrapper {
-        min-width: 0;
-        width: 100%;
-    }
-
-    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
-        margin-left: -15rem;
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -250px;
     }
 }
