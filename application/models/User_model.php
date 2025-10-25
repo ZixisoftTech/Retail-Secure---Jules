@@ -76,4 +76,86 @@ class User_model extends CI_Model {
 
         return $counts;
     }
+
+    /**
+     * Get Users by Role
+     *
+     * Retrieves all users with a specific role.
+     *
+     * @param   string  $role The role to filter by.
+     * @return  array   An array of user objects.
+     */
+    public function get_users_by_role($role)
+    {
+        $query = $this->db->get_where('users', ['role' => $role]);
+        return $query->result();
+    }
+
+    /**
+     * Get User by ID
+     *
+     * Retrieves a single user by their ID.
+     *
+     * @param   int     $id The user ID.
+     * @return  object  The user object.
+     */
+    public function get_user_by_id($id)
+    {
+        $query = $this->db->get_where('users', ['id' => $id]);
+        return $query->row();
+    }
+
+    /**
+     * Add User
+     *
+     * Inserts a new user into the database.
+     *
+     * @param   array   $data The user data.
+     * @return  int     The ID of the newly inserted user.
+     */
+    public function add_user($data)
+    {
+        // Hash the password before inserting
+        if (isset($data['password'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        }
+        $this->db->insert('users', $data);
+        return $this->db->insert_id();
+    }
+
+    /**
+     * Update User
+     *
+     * Updates an existing user's data.
+     *
+     * @param   int     $id   The ID of the user to update.
+     * @param   array   $data The data to update.
+     * @return  bool    TRUE on success, FALSE on failure.
+     */
+    public function update_user($id, $data)
+    {
+        // If password is being updated, hash it
+        if (isset($data['password']) && !empty($data['password'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        } else {
+            // Avoid updating the password if it's empty
+            unset($data['password']);
+        }
+        $this->db->where('id', $id);
+        return $this->db->update('users', $data);
+    }
+
+    /**
+     * Delete User
+     *
+     * Deletes a user from the database.
+     *
+     * @param   int     $id The ID of the user to delete.
+     * @return  bool    TRUE on success, FALSE on failure.
+     */
+    public function delete_user($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('users');
+    }
 }
