@@ -60,3 +60,20 @@ body {
 #wrapper.toggled #sidebar-wrapper {
     margin-left: -250px;
 }
+
+/* Validation Styles */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+    display: none; /* Hidden by default */
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875em;
+    color: #dc3545;
+}
+
+.is-invalid + .invalid-feedback {
+    display: block; /* Shown when input is invalid */
+}

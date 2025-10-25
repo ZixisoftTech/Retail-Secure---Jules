@@ -18,6 +18,7 @@
                                 <input type="text" id="fullName" name="full_name" class="form-control" required />
                                 <label class="form-label" for="fullName">Full Name</label>
                             </div>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <!-- Email -->
                         <div class="col-md-6 mb-4">
@@ -25,6 +26,7 @@
                                 <input type="email" id="email" name="email" class="form-control" required />
                                 <label class="form-label" for="email">Email</label>
                             </div>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -34,6 +36,7 @@
                                 <input type="tel" id="contactNumber" name="contact_number" class="form-control" required />
                                 <label class="form-label" for="contactNumber">Contact Number</label>
                             </div>
+                             <div class="invalid-feedback"></div>
                         </div>
                         <!-- Store Name -->
                         <div class="col-md-6 mb-4">
@@ -41,6 +44,7 @@
                                 <input type="text" id="storeName" name="store_name" class="form-control" />
                                 <label class="form-label" for="storeName">Store Name</label>
                             </div>
+                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                      <div class="row">
@@ -52,12 +56,14 @@
                                     <option value="<?php echo $state->id; ?>"><?php echo htmlspecialchars($state->name); ?></option>
                                 <?php endforeach; ?>
                             </select>
+                             <div class="invalid-feedback"></div>
                         </div>
                         <!-- City Dropdown -->
                         <div class="col-md-6 mb-4">
                             <select id="city" name="city" class="form-select" required disabled>
                                 <option value="" disabled selected>Select City</option>
                             </select>
+                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -67,6 +73,7 @@
                                 <input type="text" id="gstNumber" name="gst_number" class="form-control" />
                                 <label class="form-label" for="gstNumber">GST Number</label>
                             </div>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <!-- Pincode -->
                         <div class="col-md-6 mb-4">

@@ -106,6 +106,24 @@ class User_model extends CI_Model {
     }
 
     /**
+     * Get User with Parent Details
+     *
+     * Retrieves a user and their parent's details.
+     *
+     * @param   int     $id The user ID.
+     * @return  object  The user object with parent details.
+     */
+    public function get_user_with_parent_details($id)
+    {
+        $this->db->select('u.*, p.full_name as parent_name, p.wallet_balance as parent_wallet_balance');
+        $this->db->from('users u');
+        $this->db->join('users p', 'u.parent_id = p.id', 'left');
+        $this->db->where('u.id', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    /**
      * Add User
      *
      * Inserts a new user into the database.
@@ -167,46 +185,53 @@ class User_model extends CI_Model {
      * @param   int     $user_id            The ID of the user.
      * @param   float   $amount             The amount to credit or debit.
      * @param   string  $transaction_type   'credit' or 'debit'.
-     * @return  bool    TRUE on success, FALSE on failure (e.g., insufficient funds).
+     * @param   array   $data               The full transaction data.
+     * @return  array   An array containing success status and a message.
      */
-    public function update_wallet_balance($user_id, $amount, $transaction_type)
+    public function update_wallet_balance($user_id, $amount, $transaction_type, $data)
     {
         $this->db->trans_start();
 
-        // Get current balance
-        $user = $this->get_user_by_id($user_id);
+        $user = $this->get_user_with_parent_details($user_id);
         $current_balance = $user->wallet_balance;
 
         if ($transaction_type === 'debit') {
-            if ($current_balance < $amount) {
-                $this->db->trans_rollback();
-                return FALSE; // Insufficient balance
+            if ($current_balance >= $amount) {
+                // User has sufficient balance
+                $new_balance = $current_balance - $amount;
+                $this->db->where('id', $user_id);
+                $this->db->update('users', ['wallet_balance' => $new_balance]);
+            } else {
+                // User has insufficient balance, check parent
+                if ($user->parent_id && $user->parent_wallet_balance >= $amount) {
+                    // Parent has sufficient balance, debit from parent
+                    $new_parent_balance = $user->parent_wallet_balance - $amount;
+                    $this->db->where('id', $user->parent_id);
+                    $this->db->update('users', ['wallet_balance' => $new_parent_balance]);
+                    // The user's balance does not change in this scenario as the parent covers it
+                } else {
+                    // Neither user nor parent has sufficient funds
+                    $this->db->trans_rollback();
+                    $parent_name = $user->parent_name ? $user->parent_name : 'your parent';
+                    return ['success' => false, 'message' => "Insufficient balance. Contact {$parent_name} for recharge."];
+                }
             }
-            $new_balance = $current_balance - $amount;
-        } else {
+        } else { // Credit
             $new_balance = $current_balance + $amount;
+            $this->db->where('id', $user_id);
+            $this->db->update('users', ['wallet_balance' => $new_balance]);
         }
 
-        // Update user's wallet balance
-        $this->db->where('id', $user_id);
-        $this->db->update('users', ['wallet_balance' => $new_balance]);
-
         // Log the transaction
-        $transaction_data = [
-            'user_id' => $user_id,
-            'amount' => $amount,
-            'transaction_type' => $transaction_type,
-            'remark' => ucfirst($transaction_type) . ' by Super Admin',
-            // Set other fields to default or placeholder values as they are not provided in the form
-            'product_type' => 'N/A',
-            'payment_status' => 'paid',
-            'rate' => 0.00
-        ];
-        $this->db->insert('wallet_transactions', $transaction_data);
+        $this->db->insert('wallet_transactions', $data);
 
         $this->db->trans_complete();
 
-        return $this->db->trans_status();
+        if ($this->db->trans_status() === FALSE) {
+            return ['success' => false, 'message' => 'Transaction failed. Please try again.'];
+        } else {
+            return ['success' => true, 'message' => 'Transaction successful.'];
+        }
     }
 
     /**

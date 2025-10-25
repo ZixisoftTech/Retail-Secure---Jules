@@ -137,8 +137,22 @@ class Admins extends MY_Controller {
      */
     public function get_admin($id)
     {
-        $admin = $this->User_model->get_user_by_id($id);
+        $admin = $this->User_model->get_user_with_parent_details($id);
         echo json_encode($admin);
+    }
+
+    /**
+     * Get CSRF Token (AJAX)
+     *
+     * Provides a new CSRF token hash for AJAX requests.
+     */
+    public function get_csrf_token()
+    {
+        $token = array(
+            'name' => $this->security->get_csrf_token_name(),
+            'hash' => $this->security->get_csrf_hash()
+        );
+        echo json_encode($token);
     }
 
     /**
@@ -179,8 +193,11 @@ class Admins extends MY_Controller {
     public function manage_wallet()
     {
         $this->form_validation->set_rules('user_id', 'User ID', 'required|numeric');
+        $this->form_validation->set_rules('product_type', 'Product Type', 'required|trim');
         $this->form_validation->set_rules('transaction_type', 'Transaction Type', 'required|in_list[credit,debit]');
         $this->form_validation->set_rules('amount', 'Amount', 'required|numeric|greater_than[0]');
+        $this->form_validation->set_rules('rate', 'Rate', 'required|numeric');
+        $this->form_validation->set_rules('payment_status', 'Payment Status', 'required|in_list[paid,not_paid,scheme]');
 
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(['success' => false, 'error' => validation_errors()]);
@@ -191,12 +208,22 @@ class Admins extends MY_Controller {
         $transaction_type = $this->input->post('transaction_type');
         $amount = $this->input->post('amount');
 
-        $success = $this->User_model->update_wallet_balance($user_id, $amount, $transaction_type);
+        $data = [
+            'user_id' => $user_id,
+            'product_type' => $this->input->post('product_type'),
+            'transaction_type' => $transaction_type,
+            'amount' => $amount,
+            'payment_status' => $this->input->post('payment_status'),
+            'rate' => $this->input->post('rate'),
+            'remark' => $this->input->post('remark')
+        ];
 
-        if ($success) {
+        $result = $this->User_model->update_wallet_balance($user_id, $amount, $transaction_type, $data);
+
+        if ($result['success']) {
             echo json_encode(['success' => true]);
         } else {
-            echo json_encode(['success' => false, 'error' => 'Insufficient balance for debit transaction.']);
+            echo json_encode(['success' => false, 'error' => $result['message']]);
         }
     }
 
