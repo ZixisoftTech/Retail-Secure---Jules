@@ -22,6 +22,7 @@ CREATE TABLE `users` (
   `city` varchar(100) DEFAULT NULL,
   `pincode` varchar(10) DEFAULT NULL,
   `gst_number` varchar(15) DEFAULT NULL,
+  `wallet_balance` decimal(10,2) NOT NULL DEFAULT '0.00',
   `role` enum('super_admin','admin','super_stockist','distributor','retailer') NOT NULL,
   `status` enum('active','inactive') NOT NULL DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -30,6 +31,33 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `states`
+--
+
+CREATE TABLE `states` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cities`
+--
+
+CREATE TABLE `cities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `state_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `state_id` (`state_id`),
+  CONSTRAINT `cities_ibfk_1` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -106,3 +134,19 @@ CREATE TABLE `devices` (
 INSERT INTO `users` (`id`, `parent_id`, `full_name`, `email`, `contact_number`, `password`, `role`, `status`) VALUES
 (1, NULL, 'Super Admin', 'superadmin@example.com', '1234567890', '$2y$10$E.mYqN.d2c3B9s8.j5K4fO/R6.zC9V8nO7U6wG5I.4hJ3sE8wB2C', 'super_admin', 'active');
 -- Note: The default password is 'password'. You may need to update this hash using the temporary tool if you have login issues.
+
+--
+-- Seeding states and cities
+--
+INSERT INTO `states` (`id`, `name`) VALUES
+(1, 'California'),
+(2, 'Texas'),
+(3, 'New York');
+
+INSERT INTO `cities` (`id`, `state_id`, `name`) VALUES
+(1, 1, 'Los Angeles'),
+(2, 1, 'San Francisco'),
+(3, 2, 'Houston'),
+(4, 2, 'Austin'),
+(5, 3, 'New York City'),
+(6, 3, 'Buffalo');

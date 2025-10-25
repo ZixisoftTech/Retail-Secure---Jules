@@ -158,4 +158,70 @@ class User_model extends CI_Model {
         $this->db->where('id', $id);
         return $this->db->delete('users');
     }
+
+    /**
+     * Update Wallet Balance
+     *
+     * Updates a user's wallet balance and logs the transaction.
+     *
+     * @param   int     $user_id            The ID of the user.
+     * @param   float   $amount             The amount to credit or debit.
+     * @param   string  $transaction_type   'credit' or 'debit'.
+     * @return  bool    TRUE on success, FALSE on failure (e.g., insufficient funds).
+     */
+    public function update_wallet_balance($user_id, $amount, $transaction_type)
+    {
+        $this->db->trans_start();
+
+        // Get current balance
+        $user = $this->get_user_by_id($user_id);
+        $current_balance = $user->wallet_balance;
+
+        if ($transaction_type === 'debit') {
+            if ($current_balance < $amount) {
+                $this->db->trans_rollback();
+                return FALSE; // Insufficient balance
+            }
+            $new_balance = $current_balance - $amount;
+        } else {
+            $new_balance = $current_balance + $amount;
+        }
+
+        // Update user's wallet balance
+        $this->db->where('id', $user_id);
+        $this->db->update('users', ['wallet_balance' => $new_balance]);
+
+        // Log the transaction
+        $transaction_data = [
+            'user_id' => $user_id,
+            'amount' => $amount,
+            'transaction_type' => $transaction_type,
+            'remark' => ucfirst($transaction_type) . ' by Super Admin',
+            // Set other fields to default or placeholder values as they are not provided in the form
+            'product_type' => 'N/A',
+            'payment_status' => 'paid',
+            'rate' => 0.00
+        ];
+        $this->db->insert('wallet_transactions', $transaction_data);
+
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
+    }
+
+    /**
+     * Get Wallet Transactions
+     *
+     * Retrieves all wallet transactions for a given user.
+     *
+     * @param   int     $user_id    The ID of the user.
+     * @return  array   An array of transaction objects.
+     */
+    public function get_wallet_transactions($user_id)
+    {
+        $this->db->where('user_id', $user_id);
+        $this->db->order_by('created_at', 'DESC');
+        $query = $this->db->get('wallet_transactions');
+        return $query->result();
+    }
 }

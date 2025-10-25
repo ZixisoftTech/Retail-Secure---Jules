@@ -1,127 +1,127 @@
 <div class="container-fluid px-4">
     <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
-        <h1><?php echo $title; ?></h1>
-        <a href="<?php echo current_url(); ?>" class="btn btn-primary"><i class="fas fa-sync-alt me-2"></i>Refresh</a>
+        <h1 class="text-primary fw-bold"><?php echo $title; ?></h1>
+        <a href="<?php echo current_url(); ?>" class="btn btn-primary btn-lg"><i class="fas fa-sync-alt me-2"></i>Refresh</a>
     </div>
 
     <div class="row">
-        <!-- Total Admins Card -->
+        <!-- Admins Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Admins</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['total_admins']; ?></div>
+            <a href="<?php echo base_url('admins'); ?>" class="card-link">
+                <div class="card bg-primary text-white shadow-lg h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="h3 fw-bold"><?php echo $stats['total_admins']; ?></div>
+                            <div class="text-uppercase small">Manage Admins</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user-shield fa-2x text-gray-300"></i>
-                        </div>
+                        <i class="fas fa-user-shield fa-3x opacity-50"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
-        <!-- Total Super Stockists Card -->
+        <!-- Super Stockists Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Super Stockists</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['total_super_stockists']; ?></div>
+             <a href="#" class="card-link">
+                <div class="card bg-success text-white shadow-lg h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="h3 fw-bold"><?php echo $stats['total_super_stockists']; ?></div>
+                            <div class="text-uppercase small">Super Stockists</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
-                        </div>
+                        <i class="fas fa-user-tie fa-3x opacity-50"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
-        <!-- Total Distributors Card -->
+        <!-- Distributors Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Distributors</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['total_distributors']; ?></div>
+            <a href="#" class="card-link">
+                <div class="card bg-info text-white shadow-lg h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="h3 fw-bold"><?php echo $stats['total_distributors']; ?></div>
+                            <div class="text-uppercase small">Distributors</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                        </div>
+                        <i class="fas fa-users fa-3x opacity-50"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
-        <!-- Total Retailers Card -->
+        <!-- Retailers Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Retailers</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['total_retailers']; ?></div>
+            <a href="#" class="card-link">
+                <div class="card bg-warning text-white shadow-lg h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="h3 fw-bold"><?php echo $stats['total_retailers']; ?></div>
+                            <div class="text-uppercase small">Retailers</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-store fa-2x text-gray-300"></i>
-                        </div>
+                        <i class="fas fa-store fa-3x opacity-50"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Total Packages Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Packages</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['total_packages']; ?></div>
+            <a href="#" class="card-link">
+                <div class="card bg-danger text-white shadow-lg h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="h3 fw-bold"><?php echo $stats['total_packages']; ?></div>
+                            <div class="text-uppercase small">Total Packages</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-box-open fa-2x text-gray-300"></i>
-                        </div>
+                        <i class="fas fa-box-open fa-3x opacity-50"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
-        <!-- Active Device Users Card -->
+        <!-- Active Devices Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Active Devices</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['active_device_users']; ?></div>
+            <a href="#" class="card-link">
+                <div class="card bg-secondary text-white shadow-lg h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="h3 fw-bold"><?php echo $stats['active_device_users']; ?></div>
+                            <div class="text-uppercase small">Active Devices</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-mobile-alt fa-2x text-gray-300"></i>
-                        </div>
+                        <i class="fas fa-mobile-alt fa-3x opacity-50"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Today's Activations Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Today's Activations</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['todays_activations']; ?></div>
+            <a href="#" class="card-link">
+                <div class="card bg-dark text-white shadow-lg h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="h3 fw-bold"><?php echo $stats['todays_activations']; ?></div>
+                            <div class="text-uppercase small">Today's Activations</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
-                        </div>
+                        <i class="fas fa-calendar-check fa-3x opacity-50"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>
+
+<style>
+.card-link {
+    text-decoration: none;
+}
+.card {
+    transition: all 0.3s ease-in-out;
+    border-radius: 1rem;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+</style>
