@@ -86,4 +86,21 @@ class Auth extends CI_Controller {
         redirect('auth/login');
     }
 
+    /**
+     * Hash Password (Temporary Tool)
+     *
+     * Generates a secure password hash for a given string.
+     * This is a temporary utility to create a new hash for the superadmin.
+     */
+    public function hash_password()
+    {
+        $password = 'password';
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+
+        echo "<h1>New Password Hash</h1>";
+        echo "<p>Copy the hash below and paste it into the 'password' column for the superadmin@example.com user in your database.</p>";
+        echo "<hr>";
+        echo "<strong>Password:</strong> " . htmlspecialchars($password) . "<br>";
+        echo "<strong>Generated Hash:</strong> " . htmlspecialchars($hash);
+    }
 }

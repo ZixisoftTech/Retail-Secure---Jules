@@ -1,12 +1,14 @@
-<div class="border-end bg-white" id="sidebar-wrapper">
-    <div class="sidebar-heading border-bottom bg-light">Super Admin</div>
+<div id="sidebar-wrapper">
+    <div class="sidebar-heading">
+        Super Admin
+    </div>
     <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo base_url('dashboard'); ?>">Dashboard</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo base_url('admins'); ?>">Admins</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo base_url('super_stockists'); ?>">Super Stockists</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo base_url('distributors'); ?>">Distributors</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo base_url('retailers'); ?>">Retailers</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo base_url('wallet'); ?>">Wallet Recharge</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo base_url('reports'); ?>">Reports</a>
+        <a class="list-group-item list-group-item-action" href="<?php echo base_url('dashboard'); ?>">
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i>Dashboard
+        </a>
+        <a class="list-group-item list-group-item-action" href="<?php echo base_url('admins'); ?>">
+            <i class="fas fa-user-shield fa-fw me-3"></i>Manage Admins
+        </a>
+        <!-- Add other links here -->
     </div>
 </div>
