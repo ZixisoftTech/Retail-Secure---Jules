@@ -12,9 +12,6 @@
 <body>
 
 <div class="d-flex" id="wrapper">
-    <!-- Sidebar-->
-    <?php $this->load->view('templates/sidebar'); ?>
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">

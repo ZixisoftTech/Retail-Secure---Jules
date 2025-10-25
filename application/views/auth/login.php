@@ -50,13 +50,13 @@
                                 <?php echo form_open('auth/login'); ?>
 
                                     <!-- Email input -->
-                                    <div class="form-outline form-white mb-4">
+                                    <div class="form-outline mb-4">
                                         <input type="email" id="email" name="email" class="form-control form-control-lg" required />
                                         <label class="form-label" for="email">Email</label>
                                     </div>
 
                                     <!-- Password input -->
-                                    <div class="form-outline form-white mb-4">
+                                    <div class="form-outline mb-4">
                                         <input type="password" id="password" name="password" class="form-control form-control-lg" required />
                                         <label class="form-label" for="password">Password</label>
                                     </div>
