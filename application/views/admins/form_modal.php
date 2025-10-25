@@ -9,6 +9,8 @@
             <form id="adminForm" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="adminId" name="id">
+                    <!-- CSRF Token -->
+                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                     <div class="row">
                         <!-- Full Name -->
                         <div class="col-md-6 mb-4">
