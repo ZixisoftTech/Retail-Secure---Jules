@@ -5,7 +5,7 @@ $(document).ready(function() {
     // Reset form for adding a new admin
     $('button[data-mdb-toggle="modal"][data-mdb-target="#adminModal"]').on('click', function() {
         $('#adminModalLabel').text('Add New Admin');
-        $('#adminForm').attr('action', '<?php echo base_url('admins/add'); ?>');
+        $('#adminForm').attr('action', baseUrl + 'admins/add');
         $('#adminForm')[0].reset();
         $('#adminId').val('');
         $('#password').closest('.form-outline').show(); // Show password field
@@ -21,12 +21,12 @@ $(document).ready(function() {
 
         // Fetch admin data via AJAX
         $.ajax({
-            url: '<?php echo base_url('admins/get_admin/'); ?>' + adminId,
+            url: baseUrl + 'admins/get_admin/' + adminId,
             method: 'GET',
             dataType: 'json',
             success: function(data) {
                 $('#adminModalLabel').text('Edit Admin');
-                $('#adminForm').attr('action', '<?php echo base_url('admins/edit/'); ?>' + adminId);
+                $('#adminForm').attr('action', baseUrl + 'admins/edit/' + adminId);
 
                 // Populate form fields
                 $('#adminId').val(data.id);
